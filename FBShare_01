@@ -1,0 +1,103 @@
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Facebook.Unity;
+using System;
+
+public class Share : MonoBehaviour
+{
+	// Custom Share Link
+	private string shareLink = "https://itunes.apple.com/in/app/rich-illusion/id1059975553";
+	private string shareTitle = "Get Mad Beans Realm";
+	private string shareDescription = "Play Now";
+	private string shareImage = "http://vignette2.wikia.nocookie.net/angrybirds/images/5/56/Angry-Birds-ios-icon.png";
+
+	// Custom Feed Share
+	private string feedTo = string.Empty;
+	private string feedLink = "https://itunes.apple.com/in/app/rich-illusion/id1059975553";
+	private string feedTitle = "Mad Beans Realm";
+	private string feedCaption = "Test Caption";
+	private string feedDescription = "Test Description";
+	private string feedImage = "http://vignette2.wikia.nocookie.net/angrybirds/images/5/56/Angry-Birds-ios-icon.png";
+	private string feedMediaSource = string.Empty;
+
+
+	void Awake ()
+	{
+		FB.Init () ;
+	}
+
+	public void TextLink ()
+	{
+		FB.ShareLink(new Uri("https://itunes.apple.com/in/app/rich-illusion/id1059975553"), 
+			callback: null);
+//		callback: this.HandleResult
+	}
+
+	public void PhotoLink ()
+	{
+		FB.ShareLink(
+			new Uri("https://itunes.apple.com/in/app/rich-illusion/id1059975553"),
+			"Link Share",
+			"Look I'm sharing a link",
+			new Uri("http://vignette2.wikia.nocookie.net/angrybirds/images/5/56/Angry-Birds-ios-icon.png"),
+			callback: null);
+//		callback: this.HandleResult
+	}
+
+	public void CustomLink ()
+	{
+        /*
+            FB.ShareLink(
+                new Uri(this.shareLink),
+                this.shareTitle,
+                this.shareDescription,
+                new Uri(this.shareImage),
+                null);
+        */
+
+        FB.ShareLink
+        (
+            new Uri(this.shareLink),
+            "Get Mad Beans Realm",
+            "I scored 333 points in Mad Beans Realm. Play Now.",
+            new Uri(this.shareImage),
+            null
+        );
+
+//		this.HandleResult
+	}
+
+	public void Feed ()
+	{
+		FB.FeedShare(
+			string.Empty,
+			new Uri("https://itunes.apple.com/in/app/rich-illusion/id1059975553"),
+			"Med Beans Realm",
+			"Test caption",
+			"Test Description",
+			new Uri("http://vignette2.wikia.nocookie.net/angrybirds/images/5/56/Angry-Birds-ios-icon.png"),
+			string.Empty,
+			null);
+//			this.HandleResult
+	}
+
+	public void ToFacebook ()
+	{
+        string facebookshare = "https://www.facebook.com/sharer/sharer.php?u=" + Uri.EscapeUriString("https://play.google.com/store/apps/details?id=com.usp.turbocop");
+        
+        Application.OpenURL(facebookshare);
+    }
+
+    public void ToTwitter()
+    {
+        string twittershare = "http://twitter.com/home?status=" + Uri.EscapeUriString("https://play.google.com/store/apps/details?id=com.usp.richillusion");
+
+        Application.OpenURL(twittershare);
+    }
+
+
+}
+
+
